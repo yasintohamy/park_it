@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "686038024705",
+    "project_id": "parkdata-12c63",
+    "storage_bucket": "parkdata-12c63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686038024705:android:53483465e00e96923ab600",
+        "android_client_info": {
+          "package_name": "com.example.park_it"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl9HUG4LeSqlx8bndBIlY3gGH_YfC52uM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
