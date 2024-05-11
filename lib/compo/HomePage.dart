@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:park_it/Notification/Notifications.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -14,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   Widget icon(double redsize) {
     return Icon(
       size: redsize,
-      color: Color.fromARGB(255, 136, 185, 192),
+      color: Color.fromARGB(255, 255, 255, 255),
       Icons.car_crash_outlined,
     );
   }
@@ -22,14 +26,14 @@ class _HomePageState extends State<HomePage> {
   Widget icontp(double redsize) {
     return Icon(
       size: redsize,
-      color: Color.fromARGB(255, 136, 185, 192),
+      color: Color.fromARGB(255, 255, 255, 255),
       Icons.car_crash_outlined,
     );
   }
 
   Widget iconfull(double sizewd) {
     return Transform.rotate(
-      angle: 54.88,
+      angle: 55,
       child: Icon(
         size: sizewd,
         color: Color.fromARGB(255, 255, 255, 255),
@@ -61,6 +65,7 @@ class _HomePageState extends State<HomePage> {
   Color? color12;
   Color? color13;
   int c = 0, c1 = 0;
+  bool done = false;
   final ref = FirebaseDatabase.instance.ref().child('/parking1');
   String dataValue = '';
 
@@ -178,6 +183,24 @@ class _HomePageState extends State<HomePage> {
           } else {
             color13 = Colors.red;
             c1++;
+          }
+          if (c1 == 13) {
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.warning,
+              animType: AnimType.rightSlide,
+              title: 'معذرا',
+              desc: 'لا يوجد مكان متاح الأن, هل ترغب في أعلامك عند توافر مكان؟',
+              btnCancelOnPress: () => done = false,
+              btnOkOnPress: () => done = true,
+            ).show();
+          }
+          if (c > 0 && done == true) {
+            log('C: $c');
+            notification.sendPushNotification(
+                'أصبح هناك مكان متاح للركن الان بامكانك المجئ');
+            done = false;
+            log('$done');
           }
         } else {
           dataValue = '';
@@ -381,24 +404,6 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     children: [
                       Container(
-                        child: color8 == color
-                            ? iconfull(sizeWidth / 1.2)
-                            : icon(sizeHeight / 1.5),
-                        width: 120,
-                        height: sizeHeight,
-                        decoration: BoxDecoration(
-                          color: color8, // Set background color
-                          border: Border.all(
-                            // Set border
-                            color: const Color.fromARGB(255, 255, 249, 249),
-                            width: 3.0,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 3,
-                      ),
-                      Container(
                         child: color1 == color
                             ? iconfull(sizeWidth / 1.2)
                             : icon(sizeHeight / 1.5),
@@ -449,6 +454,24 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
+                      Container(
+                        height: 3,
+                      ),
+                      Container(
+                        child: color4 == color
+                            ? iconfull(sizeWidth / 1.2)
+                            : icon(sizeHeight / 1.5),
+                        width: 120,
+                        height: sizeHeight,
+                        decoration: BoxDecoration(
+                          color: color4, // Set background color
+                          border: Border.all(
+                            // Set border
+                            color: const Color.fromARGB(255, 255, 249, 249),
+                            width: 3.0,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Container(
@@ -466,24 +489,6 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Container(
-                        child: color4 == color
-                            ? iconfull(sizeWidth / 1.2)
-                            : icon(sizeHeight / 1.5),
-                        width: 120,
-                        height: sizeHeight,
-                        decoration: BoxDecoration(
-                          color: color4, // Set background color
-                          border: Border.all(
-                            // Set border
-                            color: const Color.fromARGB(255, 255, 249, 249),
-                            width: 3.0,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 3,
-                      ),
                       Container(
                         child: color5 == color
                             ? iconfull(sizeWidth / 1.2)
@@ -528,6 +533,24 @@ class _HomePageState extends State<HomePage> {
                         height: sizeHeight,
                         decoration: BoxDecoration(
                           color: color7, // Set background color
+                          border: Border.all(
+                            // Set border
+                            color: const Color.fromARGB(255, 255, 249, 249),
+                            width: 3.0,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 3,
+                      ),
+                      Container(
+                        child: color8 == color
+                            ? iconfull(sizeWidth / 1.2)
+                            : icon(sizeHeight / 1.5),
+                        width: 120,
+                        height: sizeHeight,
+                        decoration: BoxDecoration(
+                          color: color8, // Set background color
                           border: Border.all(
                             // Set border
                             color: const Color.fromARGB(255, 255, 249, 249),
